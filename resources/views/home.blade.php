@@ -60,7 +60,9 @@
                         dataKey = dataKey.results.processed_keywords;
                         for(var j in dataKey) {
                             var valKey = dataKey[j]['keyword'].toLowerCase();
-                            for(var iv in keyTag) if(valKey.search(keyTag[iv])>-1 && valKey.search(explodeKey[v])>-1) getArr.push(valKey);
+                            var isAdd = 0;
+                            for(var iv in keyTag) if(valKey.search(keyTag[iv])>-1 && valKey.search(explodeKey[v])>-1) isAdd=1;
+                            if(isAdd) getArr.push(valKey);
                            // var findPreg = new RegExp('/('+keyTag.join('|')+')/', 'g');
                         }
                     }
