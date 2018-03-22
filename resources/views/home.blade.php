@@ -1,6 +1,4 @@
 @include('blocks.header')
-<body>
-<div class="container">
     <div class="row">
         <div class="span4">
             <div class="store-name" data-name="Store Name">
@@ -10,7 +8,7 @@
         </div>
         <div class="span8">
             <div class="store-name" data-name="Title Keywords">
-                <input id="tag" type="text" value="a" />
+                <input id="tag" type="text" value="coupon,$" />
             </div>
         </div>
     </div>
@@ -61,7 +59,11 @@
                         for(var j in dataKey) {
                             var valKey = dataKey[j]['keyword'].toLowerCase();
                             var isAdd = 0;
-                            for(var iv in keyTag) if(valKey.search(keyTag[iv])>-1 && valKey.search(explodeKey[v])>-1) isAdd=1;
+                            for(var iv in keyTag) {
+							if(valKey.indexOf(keyTag[iv])>-1 && valKey.indexOf(explodeKey[v])>-1) {
+									isAdd=1;
+								}
+							}
                             if(isAdd) getArr.push(valKey);
                            // var findPreg = new RegExp('/('+keyTag.join('|')+')/', 'g');
                         }
