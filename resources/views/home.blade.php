@@ -56,13 +56,13 @@
                 {
                     for(var v in explodeKey) {
                         var dataKeys = JSON.parse(localStorage[explodeKey[v]]);
+                        if(typeof dataKeys.message!='undefined') {alert('Lỗi máy gốc. get lại!');return;}
                         var dataKey = dataKeys.results.processed_keywords;
                         var dataUnProcess = dataKeys.results.unprocessed_keywords;
                         //search in key processed
                         for(var j in dataKey) {
                             var valKey = dataKey[j]['keyword'].toLowerCase();
                             var isAdd = 0;
-<<<<<<< HEAD
                             //if(valKey.indexOf(explodeKey[v])>-1)
                             if(keyTagLen==0) isAdd=1;
                             else for(var iv in keyTag) {
@@ -70,13 +70,6 @@
                                         isAdd=1;
                                     }
                             }
-=======
-                            for(var iv in keyTag) {
-							if(valKey.indexOf(keyTag[iv])>-1 && valKey.indexOf(explodeKey[v])>-1) {
-									isAdd=1;
-								}
-							}
->>>>>>> fa01403f0a918395538c8c59f1f0a3deb7c71c31
                             if(isAdd) getArr.push(valKey);
                            // var findPreg = new RegExp('/('+keyTag.join('|')+')/', 'g');
                         }
@@ -127,7 +120,7 @@
             keyGeted = 1;
             $('#dataGet').val('');
             var keyTag = $('#tag').val().toLowerCase();
-            var keywords = $('#keywords').val().toLowerCase().replace(/\s/g, '');
+            var keywords = $('#keywords').val().toLowerCase().replace(/\s/g, '-');
             explodeKey = keywords.split(',');
             var kw = explodeKey[0];
                    getDataKey(kw);
