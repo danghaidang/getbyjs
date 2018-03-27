@@ -62,6 +62,7 @@
                         for(var j in dataKey) {
                             var valKey = dataKey[j]['keyword'].toLowerCase();
                             var isAdd = 0;
+<<<<<<< HEAD
                             //if(valKey.indexOf(explodeKey[v])>-1)
                             if(keyTagLen==0) isAdd=1;
                             else for(var iv in keyTag) {
@@ -69,6 +70,13 @@
                                         isAdd=1;
                                     }
                             }
+=======
+                            for(var iv in keyTag) {
+							if(valKey.indexOf(keyTag[iv])>-1 && valKey.indexOf(explodeKey[v])>-1) {
+									isAdd=1;
+								}
+							}
+>>>>>>> fa01403f0a918395538c8c59f1f0a3deb7c71c31
                             if(isAdd) getArr.push(valKey);
                            // var findPreg = new RegExp('/('+keyTag.join('|')+')/', 'g');
                         }
