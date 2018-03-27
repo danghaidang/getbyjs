@@ -25,5 +25,8 @@
     </style>
 </head>
 <body>
-
+<div class="nav">
+    <a href="{{ route('getHome') }}"><span class="btn btn-primary">Get Title Coupon</span></a> <a href="{{ route('getListView') }}"><span class="btn btn-primary">Get info Links</span></a>
+</div>
+<div class="container">
 

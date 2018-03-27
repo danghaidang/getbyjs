@@ -16,6 +16,7 @@ class HomeController extends Controller
     }
 
     public function getList($query='Udemy') {
+        $query = strtolower($query);
         $url = 'https://dk1ecw0kik.execute-api.us-east-1.amazonaws.com/prod/query?query='.
             $query.'&language=en&country=us&google=http://www.google.com&service=0';
         $data = ngegrab($url, false);
@@ -26,7 +27,6 @@ class HomeController extends Controller
 
 
     }
-
 
 
 }

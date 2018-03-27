@@ -1,6 +1,4 @@
 @include('blocks.header')
-<body>
-<div class="container">
     <div class="row">
         <div class="span4">
             <div class="store-name" data-name="Store Name">
@@ -10,7 +8,7 @@
         </div>
         <div class="span8">
             <div class="store-name" data-name="Title Keywords">
-                <input id="tag" type="text" value="a" />
+                <input id="tag" type="text" value="coupon,$" />
             </div>
         </div>
     </div>
@@ -52,24 +50,47 @@
     function getWhenDone() {
         var getArr = [];
         var keyTag = $('#tag').val().toLowerCase().split(',');
+        var keyTagLen = keyTag.length;
             for(var i in localStorage) {
                 if(in_array(explodeKey, i))
                 {
                     for(var v in explodeKey) {
-                        var dataKey = JSON.parse(localStorage[explodeKey[v]]);
-                        dataKey = dataKey.results.processed_keywords;
+                        var dataKeys = JSON.parse(localStorage[explodeKey[v]]);
+                        var dataKey = dataKeys.results.processed_keywords;
+                        var dataUnProcess = dataKeys.results.unprocessed_keywords;
+                        //search in key processed
                         for(var j in dataKey) {
                             var valKey = dataKey[j]['keyword'].toLowerCase();
                             var isAdd = 0;
-                            for(var iv in keyTag) if(valKey.search(keyTag[iv])>-1 && valKey.search(explodeKey[v])>-1) isAdd=1;
+                            //if(valKey.indexOf(explodeKey[v])>-1)
+                            if(keyTagLen==0) isAdd=1;
+                            else for(var iv in keyTag) {
+                                if(valKey.indexOf(keyTag[iv])>-1) {
+                                        isAdd=1;
+                                    }
+                            }
                             if(isAdd) getArr.push(valKey);
                            // var findPreg = new RegExp('/('+keyTag.join('|')+')/', 'g');
                         }
+                        //search in key unprocess
+                        for(var j in dataUnProcess) {
+                            var valKey = dataUnProcess[j];
+                            var isAdd = 0;
+                            //if(valKey.indexOf(explodeKey[v])>-1)
+                            if(keyTagLen==0) isAdd=1;
+                            else for(var iv in keyTag) {
+                                if(valKey.indexOf(keyTag[iv])>-1) {
+                                    isAdd=1;
+                                }
+                            }
+                            if(isAdd) getArr.push(valKey);
+                        }
+
                     }
                 }
 
             }
-            getArr = unique(getArr);
+            getArr = unique(getArr).sort();
        for(var m in getArr) $('#dataGet').val($('#dataGet').val()+getArr[m]+"\n");
     }
 

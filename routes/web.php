@@ -15,3 +15,9 @@ Route::group(['prefix'=>'/'], function() {
     Route::get('/', ['as'=> 'getHome', 'uses'=>'HomeController@getHome']);
     Route::get('/get/{query}', ['as'=>'getList', 'uses'=>'HomeController@getList']);
 });
+
+
+Route::group(['prefix'=>'/getlinks'], function() {
+    Route::get('/', ['as'=>'getListView', 'uses'=>'LinksController@getListView']);
+    Route::get('/get', ['as'=>'getListLink', 'uses'=>'LinksController@getList']);
+});
