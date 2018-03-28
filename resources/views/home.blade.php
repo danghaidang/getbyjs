@@ -104,7 +104,7 @@
 
     function getDataKey(kwName) {
     $('#process').html(kwName+' <b>Loading...</b>');
-        $.get('get/' + kwName, function (data) {
+        $.get('get/' + encodeURIComponent(kwName), function (data) {
             setStore(kwName, JSON.stringify(data));
 
             //queue get data
@@ -134,8 +134,10 @@
 
             var addKeys = '';
             for(var k in explodeKey) {
-                for(var t in keyTag)
-                addKeys += ',' + explodeKey[k] + '-' + keyTag[t];
+                for(var t in keyTag) {
+                    var checkKey = keyTag[t].replace(/[^A-Za-z0-9]/g,'');
+                if(checkKey) addKeys += ',' + explodeKey[k] + '-' + checkKey;
+                }
             }
             keywords += addKeys;//.replace(/,+$/,'');
             explodeKey = keywords.split(',');
