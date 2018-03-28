@@ -1,4 +1,5 @@
 @include('blocks.header')
+<div id="process" class="row store-name" data-name="Keyword đang get:"></div>
     <div class="row">
         <div class="span4">
             <div class="store-name" data-name="Store Name">
@@ -62,6 +63,9 @@
                         //search in key processed
                         for(var j in dataKey) {
                             var valKey = dataKey[j]['keyword'].toLowerCase();
+                            var searchVolume = dataKey[j]['volume'];
+                            var cpcKey = dataKey[j]['cpc'];
+                            var competitionKey = dataKey[j]['competition'];
                             var isAdd = 0;
                             //if(valKey.indexOf(explodeKey[v])>-1)
                             if(keyTagLen==0) isAdd=1;
@@ -70,7 +74,7 @@
                                         isAdd=1;
                                     }
                             }
-                            if(isAdd) getArr.push(valKey);
+                            if(isAdd) getArr.push(valKey + '||' + searchVolume + '||' + cpcKey + '||' + competitionKey);
                            // var findPreg = new RegExp('/('+keyTag.join('|')+')/', 'g');
                         }
                         //search in key unprocess
@@ -93,11 +97,13 @@
             }
             getArr = unique(getArr).sort();
        for(var m in getArr) $('#dataGet').val($('#dataGet').val()+getArr[m]+"\n");
+
+        $('#process').html('<b>Hoàn tất</b>!!!');
     }
 
 
     function getDataKey(kwName) {
-
+    $('#process').text(kwName+' Loading...');
         $.get('get/' + kwName, function (data) {
             setStore(kwName, JSON.stringify(data));
 
@@ -113,14 +119,25 @@
         });
     };
 
+    function removeSpace(str) {
+        return str.trim().replace(/(\s*),(\s*)/, ',');
+    }
 
     var explodeKey = [];
     var keyGeted = 1;
     $('#submit').on('click', function(){
             keyGeted = 1;
             $('#dataGet').val('');
-            var keyTag = $('#tag').val().toLowerCase();
-            var keywords = $('#keywords').val().toLowerCase().replace(/\s/g, '-');
+            var keyTag = removeSpace($('#tag').val().toLowerCase()).split(',');
+            var keywords = removeSpace($('#keywords').val().toLowerCase()).replace(/\s/g, '-');
+            explodeKey = keywords.split(',');
+
+            var addKeys = '';
+            for(var k in explodeKey) {
+                for(var t in keyTag)
+                addKeys += ',' + explodeKey[k] + '-' + keyTag[t];
+            }
+            keywords += addKeys;//.replace(/,+$/,'');
             explodeKey = keywords.split(',');
             var kw = explodeKey[0];
                    getDataKey(kw);
