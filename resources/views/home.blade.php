@@ -74,7 +74,7 @@
                                         isAdd=1;
                                     }
                             }
-                            if(isAdd) getArr.push(valKey + '||' + searchVolume + '||' + cpcKey + '||' + competitionKey);
+                            if(isAdd) getArr.push([valKey,searchVolume,cpcKey,competitionKey].join('||'));
                            // var findPreg = new RegExp('/('+keyTag.join('|')+')/', 'g');
                         }
                         //search in key unprocess
@@ -88,7 +88,7 @@
                                     isAdd=1;
                                 }
                             }
-                            if(isAdd) getArr.push(valKey);
+                            if(isAdd) getArr.push([valKey,'','',''].join('||'));
                         }
 
                     }
@@ -103,7 +103,7 @@
 
 
     function getDataKey(kwName) {
-    $('#process').text(kwName+' Loading...');
+    $('#process').html(kwName+' <b>Loading...</b>');
         $.get('get/' + kwName, function (data) {
             setStore(kwName, JSON.stringify(data));
 
