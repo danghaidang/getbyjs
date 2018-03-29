@@ -59,8 +59,8 @@
     var domainList = [];
     keyGeted = 1;
     $(document).ready(function(){
-        keyGeted = 1;
         $('#submit').on('click', function(){
+            keyGeted = 1;
             domainList = $('#domain').val().split(/\n|\,|\|/);
             getData(domainList[0]);
 
