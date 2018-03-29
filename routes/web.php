@@ -21,3 +21,8 @@ Route::group(['prefix'=>'/getlinks'], function() {
     Route::get('/', ['as'=>'getListView', 'uses'=>'LinksController@getListView']);
     Route::get('/get', ['as'=>'getListLink', 'uses'=>'LinksController@getList']);
 });
+
+Route::group(['prefix'=>'/getlogo'], function() {
+    Route::get('/', ['as'=>'getLogoView', 'uses'=>'GetlogoController@getLogoView']);
+    Route::get('/get', ['as'=>'getLogo', 'uses'=>'GetlogoController@getLogo']);
+});
