@@ -30,6 +30,9 @@
         $('#data-fail').html($('#data-fail').val()+domain+"\n");
     }
 
+    function whenDone() {
+        $('#domain-geted').html('<b>Hoàn tất</b>');
+    }
     function getData(domain) {
         $('#domain-geted').html(domain);
         domain = encodeURIComponent(domain);
@@ -43,6 +46,7 @@
                 } else debugErr(domain);
 
                 if(keyGeted<domainList.length) getData(domainList[keyGeted]);
+                else whenDone();
                 keyGeted++;
             },
             error: function(){
